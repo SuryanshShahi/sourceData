@@ -6,6 +6,8 @@ import Table from "@/app/shared/table/Index";
 import { ITableHeading } from "@/app/shared/types";
 import { ReactNode } from "react";
 import useHook from "./useHook";
+import { LuEye, LuSave, LuUpload } from "react-icons/lu";
+import { BiSolidSave } from "react-icons/bi";
 
 const Page = () => {
   const { sourceData, masterData, values, setFieldValue } = useHook();
@@ -40,7 +42,7 @@ const Page = () => {
       masterData?.fields?.map((item) => (
         <Button
           onClick={() => {}}
-          btnName="Calculate"
+          btnName="Evaluate"
           size="xs"
           variant="secondary-color"
           className="!px-2 !py-1"
@@ -49,20 +51,12 @@ const Page = () => {
     result: masterData?.fields?.map((item) => "NA") || [],
     actions:
       masterData?.fields?.map((item) => (
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2" title="Save">
           <Button
+            className="!p-2 !border-none"
+            variant="secondary-color"
+            icon={<LuSave size={18} className="text-brand-tertiary" />}
             onClick={() => {}}
-            btnName="Save"
-            variant="primary"
-            size="xs"
-            className="!px-2 !py-1"
-          />
-          <Button
-            onClick={() => {}}
-            btnName="Delete"
-            variant="error"
-            size="xs"
-            className="!px-2 !py-1"
           />
         </div>
       )) || [],
@@ -75,6 +69,18 @@ const Page = () => {
           {sourceData?.table}
         </Heading>
         <Divider />
+        <div className="mx-4 relative">
+          <Button
+            btnName="Upload File"
+            variant="secondary"
+            icon={<LuUpload size={18} />}
+            fullWidth
+          />
+          <input
+            type="file"
+            className="absolute top-0 w-full h-full opacity-0 cursor-pointer"
+          />
+        </div>
         <div className="p-3 space-y-6">
           {sourceData?.fields?.map((item, idx) => (
             <div key={idx}>{item?.name}</div>
@@ -90,8 +96,17 @@ const Page = () => {
           className="overflow-y-scroll max-h-[calc(100vh-300px)]"
         />
         <div className="flex justify-center gap-x-4">
-          <Button btnName="Save All" />
-          <Button btnName="Populate Data" variant="secondary" />
+          <Button
+            btnName="Preview Transformations"
+            icon={<LuEye size={18} />}
+            iconFirst
+          />
+          <Button
+            btnName="Save Transformations"
+            icon={<LuSave size={18} />}
+            iconFirst
+          />
+          <Button btnName="Apply Transformations" variant="secondary" />
         </div>
       </div>
     </div>
